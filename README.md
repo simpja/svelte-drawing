@@ -7,7 +7,7 @@ This is the repo for a proejct where we draw fruit to a canvas using Svelte
 Install the dependencies...
 
 ```bash
-cd svelte-app
+cd svelte-drawing
 npm install
 ```
 
