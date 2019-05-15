@@ -10,7 +10,6 @@
   let canvasElement;
   let imgElement;
   let mouseDown = false;
-  // let coords = [];
   const mousePos = {
     x: 0,
     y: 0
@@ -26,16 +25,13 @@
     if (mouseDown) {
       mousePos.x = x;
       mousePos.y = y;
-      // coords.push([x, y]);
       drawImage(x, y);
     }
   }
 
   function drawImage(x, y) {
     const dimensions = 200;
-
     const ctx = canvasElement.getContext("2d");
-    // coords.reduce((prev, next) => , [])
 
     ctx.drawImage(
       imgElement,
@@ -44,11 +40,6 @@
       dimensions,
       dimensions
     );
-
-    // coords.forEach(coord => {
-    //   // TODO: Calculate a vector between prev and current coordinate. Draw for every pixel in that vector
-
-    // });
   }
 
   function resetDrawing() {
@@ -61,12 +52,6 @@
     const ctx = canvasElement.getContext("2d");
   });
 </script>
-
-<style>
-  h1 {
-    color: purple;
-  }
-</style>
 
 <!-- Bind size of window to local varaibles -->
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
