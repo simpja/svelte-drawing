@@ -10,7 +10,7 @@
   let canvasElement;
   let imgElement;
   let mouseDown = false;
-  let coords = [];
+  // let coords = [];
   const mousePos = {
     x: 0,
     y: 0
@@ -26,28 +26,29 @@
     if (mouseDown) {
       mousePos.x = x;
       mousePos.y = y;
-      coords.push([x, y]);
+      // coords.push([x, y]);
+      drawImage(x, y);
     }
   }
 
-  function drawImage() {
-    const dimens = 100;
+  function drawImage(x, y) {
+    const dimensions = 200;
 
-    console.log(coords);
     const ctx = canvasElement.getContext("2d");
     // coords.reduce((prev, next) => , [])
 
-    coords.forEach(coord => {
-      // TODO: Calculate a vector between prev and current coordinate. Draw for every pixel in that vector
+    ctx.drawImage(
+      imgElement,
+      x - dimensions / 2,
+      y - dimensions,
+      dimensions,
+      dimensions
+    );
 
-      ctx.drawImage(
-        imgElement,
-        coord[0] - dimens / 2,
-        coord[1] - dimens,
-        dimens,
-        dimens
-      );
-    });
+    // coords.forEach(coord => {
+    //   // TODO: Calculate a vector between prev and current coordinate. Draw for every pixel in that vector
+
+    // });
   }
 
   function resetDrawing() {
@@ -78,7 +79,6 @@
       <span slot="y">windowHeight</span>
     </ShowCoords>
     <ShowCoords {...mousePos} />
-    <button on:click={drawImage}>Draw</button>
     <button on:click={resetDrawing}>Reset</button>
   </div>
 
