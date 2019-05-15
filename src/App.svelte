@@ -62,15 +62,15 @@
 </script>
 
 <style>
-	h1 {
-	  color: purple;
-	}
+  h1 {
+    color: purple;
+  }
 </style>
 
 <!-- Bind size of window to local varaibles -->
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
 
-<div class="flex-auto"> 
+<div class="flex-auto">
 
   <div class="absolute">
     <ShowCoords x={windowWidth} y={windowHeight}>
@@ -78,15 +78,30 @@
       <span slot="y">windowHeight</span>
     </ShowCoords>
     <ShowCoords {...mousePos} />
-    <button on:click="{drawImage}">Draw</button>
-    <button on:click="{resetDrawing}">Reset</button>
+    <button on:click={drawImage}>Draw</button>
+    <button on:click={resetDrawing}>Reset</button>
   </div>
 
-  <pre class="absolute right-0 mr3" >{mouseDown}</pre>
+  <pre class="absolute right-0 mr3">{mouseDown}</pre>
 
-<div style="display: inline-block;"  bind:clientWidth={imgWidth} bind:clientHeight={imgHeight}>
-  <img class="dn" width="200" height="200" bind:this={imgElement} src={appricot}  alt="appricot1" />
-</div>
+  <div
+    style="display: inline-block;"
+    bind:clientWidth={imgWidth}
+    bind:clientHeight={imgHeight}>
+    <img
+      class="dn"
+      width="200"
+      height="200"
+      bind:this={imgElement}
+      src={appricot}
+      alt="appricot1" />
+  </div>
 
-  <canvas on:mousemove={trackMouse} on:mouseup={trackMouse} on:mousedown={trackMouse} bind:this={canvasElement} width={windowWidth} height={windowHeight}></canvas>
+  <canvas
+    on:mousemove={trackMouse}
+    on:mouseup={trackMouse}
+    on:mousedown={trackMouse}
+    bind:this={canvasElement}
+    width={windowWidth}
+    height={windowHeight} />
 </div>
