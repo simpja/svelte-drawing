@@ -7,13 +7,13 @@
   let windowHeight = 0;
   let imgWidth;
   let imgHeight;
+  let ctx;
   let canvasElement;
   let imgElement;
   let mouseDown = false;
-  const mousePos = {
-    x: 0,
-    y: 0
-  };
+  let mouseX = 0;
+  let mouseY = 0;
+  let counter = 0;
 
   function trackMouse({ x, y, type }) {
     if (type === "mousedown") {
@@ -22,36 +22,61 @@
     if (type === "mouseup") {
       mouseDown = false;
     }
+
     if (mouseDown) {
-      mousePos.x = x;
-      mousePos.y = y;
-      drawImage(x, y);
+      drawBetween(mouseX, mouseY, x, y);
+    }
+
+    mouseX = x;
+    mouseY = y;
+  }
+
+  function drawBetween(oldX, oldY, newX, newY) {
+    const dx = oldX - newX;
+    const dy = oldY - newY;
+    const mag = Math.max(Math.abs(Math.sqrt(dx * dx + dy * dy)), 1);
+    const nx = -1 * (dx / mag);
+    const ny = -1 * (dy / mag);
+    let count = 0;
+    if (mag === count) {
+      drawImage(newX, newY);
+    } else {
+      while (count < mag) {
+        drawImage(oldX + nx * count, oldY + ny * count);
+        count++;
+      }
     }
   }
 
   function drawImage(x, y) {
     const dimensions = 200;
-    const ctx = canvasElement.getContext("2d");
+    const cx = x - dimensions / 2;
+    const cy = y - dimensions / 2;
 
-    ctx.drawImage(
-      imgElement,
-      x - dimensions / 2,
-      y - dimensions,
-      dimensions,
-      dimensions
-    );
+    // ctx.translate(cx, cy);
+    // ctx.rotate((Math.PI / 180) * counter++);
+    ctx.drawImage(imgElement, cx, cy, dimensions, dimensions);
+    // ctx.translate(-cx, -cy);
+    // ctx.translate(-(x + dimensions / 2), -(y + dimensions / 2));
+    // ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // ctx.resetTransform();
+    // requestAnimationFrame(drawImage);
   }
 
   function resetDrawing() {
-    coords = [];
-    const ctx = canvasElement.getContext("2d");
     ctx.clearRect(0, 0, windowWidth, windowHeight);
   }
 
   onMount(() => {
-    const ctx = canvasElement.getContext("2d");
+    ctx = canvasElement.getContext("2d");
   });
 </script>
+
+<style>
+  canvas {
+    cursor: crosshair;
+  }
+</style>
 
 <!-- Bind size of window to local varaibles -->
 <svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} />
@@ -63,7 +88,7 @@
       <span slot="x">windowWidth</span>
       <span slot="y">windowHeight</span>
     </ShowCoords>
-    <ShowCoords {...mousePos} />
+    <ShowCoords x={mouseX} y={mouseY} />
     <button on:click={resetDrawing}>Reset</button>
   </div>
 
