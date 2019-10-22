@@ -1,6 +1,6 @@
 # Svelte drawing
 
-This is the repo for a proejct where we draw fruit to a canvas using Svelte
+This is the repo for a proejct where we draw fruit to a canvas using Svelte. Heavily inspired by [yokoland.com](http://www.yokoland.com).
 
 ## Get started
 
