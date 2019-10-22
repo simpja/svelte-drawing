@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import ShowCoords from "./ShowCoords.svelte";
   import appricot from "./appricot.png";
+  import banana from "./banana.png";
 
   let windowWidth = 0;
   let windowHeight = 0;
@@ -9,14 +10,20 @@
   let imgHeight;
   let ctx;
   let canvasElement;
-  let imgElement;
+  let imgElement1;
+  let imgElement2;
   let mouseDown = false;
   let mouseX = 0;
   let mouseY = 0;
-  let counter = 0;
+  let imgSrc;
 
   function trackMouse({ x, y, type }) {
     if (type === "mousedown") {
+      if (imgSrc === imgElement1) {
+        imgSrc = imgElement2;
+      } else {
+        imgSrc = imgElement1;
+      }
       mouseDown = true;
     }
     if (type === "mouseup") {
@@ -55,7 +62,7 @@
 
     // ctx.translate(cx, cy);
     // ctx.rotate((Math.PI / 180) * counter++);
-    ctx.drawImage(imgElement, cx, cy, dimensions, dimensions);
+    ctx.drawImage(imgSrc, cx, cy, dimensions, dimensions);
     // ctx.translate(-cx, -cy);
     // ctx.translate(-(x + dimensions / 2), -(y + dimensions / 2));
     // ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -102,9 +109,16 @@
       class="dn"
       width="200"
       height="200"
-      bind:this={imgElement}
+      bind:this={imgElement1}
       src={appricot}
       alt="appricot1" />
+    <img
+      class="dn"
+      width="200"
+      height="200"
+      bind:this={imgElement2}
+      src={banana}
+      alt="banana" />
   </div>
 
   <canvas
