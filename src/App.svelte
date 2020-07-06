@@ -60,14 +60,7 @@
     const cx = x - dimensions / 2;
     const cy = y - dimensions / 2;
 
-    // ctx.translate(cx, cy);
-    // ctx.rotate((Math.PI / 180) * counter++);
     ctx.drawImage(imgSrc, cx, cy, dimensions, dimensions);
-    // ctx.translate(-cx, -cy);
-    // ctx.translate(-(x + dimensions / 2), -(y + dimensions / 2));
-    // ctx.setTransform(1, 0, 0, 1, 0, 0);
-    // ctx.resetTransform();
-    // requestAnimationFrame(drawImage);
   }
 
   function resetDrawing() {
@@ -99,7 +92,7 @@
     <button on:click={resetDrawing}>Reset</button>
   </div>
 
-  <pre class="absolute right-0 mr3">{mouseDown}</pre>
+  <pre class="absolute right-0 mr3">Is mouse down: {mouseDown}</pre>
 
   <div
     style="display: inline-block;"
